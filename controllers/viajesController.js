@@ -83,7 +83,7 @@ export const actualizarViaje = async (req, res) => {
       imagen: imagen || viaje.imagen, // Mantiene la imagen anterior si no se sube una nueva
     });
 
-    res.redirect('/viajes'); // Redirige a la lista de viajes después de actualizar
+    res.redirect('/'); // Redirige a la lista de viajes después de actualizar
   } catch (error) {
     console.error(error);
     res.status(500).send('Error al actualizar el viaje');
@@ -98,7 +98,7 @@ export const eliminarViaje = async (req, res) => {
     }
 
     await viaje.destroy();
-    res.redirect('/viajes'); // Redirige a la lista de viajes después de eliminar
+    res.redirect('/'); // Redirige a la lista de viajes después de eliminar
   } catch (error) {
     console.error(error);
     res.status(500).send('Error al eliminar el viaje');
