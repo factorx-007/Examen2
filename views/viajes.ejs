@@ -289,7 +289,7 @@
   <div class="container">
     <div class="actions-bar">
       <div>
-        <a href="/viajes/crear" class="btn btn-primary">
+        <a href="/crear" class="btn btn-primary">
           <i class="fas fa-plus"></i> Nuevo Viaje
         </a>
         <a href="/agencias/crear" class="btn btn-secondary">
@@ -330,10 +330,10 @@
               S/ <%= viaje.precio.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2}) %>
             </div>
             <div class="viaje-actions">
-              <a href="/viajes/editar/<%= viaje.id %>" class="btn btn-outline" style="flex: 1;">
+              <a href="/editar/<%= viaje.id %>" class="btn btn-outline" style="flex: 1;">
                 <i class="fas fa-edit"></i> Editar
               </a>
-              <a href="/viajes/eliminar/<%= viaje.id %>" class="btn btn-danger">
+              <a href="/eliminar/<%= viaje.id %>" class="btn btn-danger">
                 <i class="fas fa-trash"></i>
               </a>
             </div>
