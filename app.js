@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 app.use('/uploads', express.static(join(__dirname, 'uploads')));
 
 // Rutas
-app.use('/viajes', viajeRoutes);
+app.use('/', viajeRoutes);
 app.use('/agencias', agenciaRouter); // CORREGIDO
 
 // Sincronizar y correr
