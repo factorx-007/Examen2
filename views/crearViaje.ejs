@@ -219,3 +219,21 @@
   </script>
 </body>
 </html>
+```
+
+  <script>
+    // Vista previa de imagen
+    document.getElementById('imagen').addEventListener('change', function(e) {
+      const preview = document.getElementById('imagePreview');
+      if (this.files && this.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          preview.innerHTML = `<img src="${e.target.result}" style="max-width: 100%; max-height: 100%;">`;
+          preview.style.display = 'block';
+        }
+        reader.readAsDataURL(this.files[0]);
+      }
+    });
+  </script>
+</body>
+</html>

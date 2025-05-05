@@ -41,7 +41,7 @@ export const crearViaje = async (req, res) => {
       imagen,
     });
 
-    res.redirect('/viajes'); // Redirige a la lista de viajes después de crear el viaje
+    res.redirect('/'); // Redirige a la lista de viajes después de crear el viaje
   } catch (error) {
     console.error(error);
     res.status(500).send('Error al crear el viaje');
