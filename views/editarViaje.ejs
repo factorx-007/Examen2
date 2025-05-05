@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Viaje VIP | Luxury Travel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #1a3a6e;
+      --secondary: #d4af37;
+      --accent: #e63946;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+    }
+    
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: var(--dark);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .admin-header {
+      background: linear-gradient(135deg, var(--primary) 0%, #0d2444 100%);
+      color: white;
+      padding: 1.5rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .admin-header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .admin-header h1 {
+      font-size: 1.8rem;
+      margin: 0;
+      font-weight: 600;
+    }
+    
+    .back-link {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+    
+    .admin-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    
+    .admin-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(26, 58, 110, 0.1);
+    }
+    
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 1em;
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      font-size: 1rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #122a50;
+    }
+    
+    .btn-block {
+      display: block;
+      width: 100%;
+    }
+    
+    .image-preview-container {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    
+    .current-image {
+      max-width: 200px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      padding: 5px;
+    }
+    
+    .new-image-preview {
+      max-width: 200px;
+      border-radius: 6px;
+      border: 1px dashed #ddd;
+      padding: 10px;
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .image-preview-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="admin-header">
+    <div class="admin-header-content">
+      <h1>Editar Viaje VIP</h1>
+      <a href="/viajes" class="back-link">
+        <i class="fas fa-arrow-left"></i> Volver al listado
+      </a>
+    </div>
+  </header>
+
+  <div class="admin-container">
+    <div class="admin-card">
+      <form action="/viajes/editar/<%= viaje.id %>" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="destino">Destino *</label>
+          <input type="text" class="form-control" name="destino" id="destino" value="<%= viaje.destino %>" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="agencia_id">Agencia *</label>
+          <select class="form-control" name="agencia_id" id="agencia_id" required>
+            <% agencias.forEach(agencia => { %>
+              <option value="<%= agencia.id %>" <%= agencia.id === viaje.agencia_id ? 'selected' : '' %>>
+                <%= agencia.nombre %>
+              </option>
+            <% }); %>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="duracion">Duración (días) *</label>
+          <input type="number" class="form-control" name="duracion" id="duracion" min="1" value="<%= viaje.duracion %>" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="precio">Precio *</label>
+          <input type="number" class="form-control" name="precio" id="precio" min="0" step="0.01" value="<%= viaje.precio %>" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="imagen">Imagen destacada</label>
+          <input type="file" class="form-control" name="imagen" id="imagen" accept="image/*">
+          
+          <div class="image-preview-container">
+            <% if(viaje.imagen) { %>
+              <div>
+                <p>Imagen actual:</p>
+                <img src="/uploads/<%= viaje.imagen %>" alt="Imagen actual del viaje" class="current-image">
+              </div>
+            <% } %>
+            <div id="newImagePreview" class="new-image-preview"></div>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-block">
+          <i class="fas fa-save"></i> Guardar Cambios
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Vista previa de la nueva imagen
+    document.getElementById('imagen').addEventListener('change', function(e) {
+      const preview = document.getElementById('newImagePreview');
+      if (this.files && this.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          preview.innerHTML = `<p>Nueva imagen:</p><img src="${e.target.result}" style="max-width: 100%;">`;
+          preview.style.display = 'block';
+        }
+        reader.readAsDataURL(this.files[0]);
+      }
+    });
+  </script>
+</body>
+</html>
